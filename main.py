@@ -574,8 +574,19 @@ async def button_callback(update: Update, context: CallbackContext):
 
 async def start(update: Update, context: CallbackContext):
     user = update.effective_user
-    await send_main_menu(context, update.effective_chat.id, user)
 
+    # KIRIM KE GRUP LOGS bahwa user baru buka bot
+    await send_logs(
+        context,
+        f"👤 USER MEMULAI BOT\n"
+        f"Nama: {user.full_name}\n"
+        f"ID: {user.id}\n"
+        f"Waktu: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}"
+    )
+
+    # Kirim main menu ke user
+    await send_main_menu(context, update.effective_chat.id, user)
+    
 async def handle_text(update: Update, context: CallbackContext):
     text = update.message.text.strip()
 
@@ -705,6 +716,7 @@ def main(): # Made With love by @govtrashit A.K.A RzkyO
 
 if __name__ == "__main__":
     main()
+
 
 
 
