@@ -54,22 +54,24 @@ def add_riwayat(uid, tipe, keterangan, jumlah):
     if tipe == "BELI":
         update_statistik(uid, jumlah)
 
-# ===== LOGS UTILITY =====
+# # ===== LOGS UTILITY =====
 async def send_logs(context, text):
     try:
         await context.bot.send_message(LOG_GROUP_ID, text, parse_mode="Markdown")
     except Exception as e:
         print(f"Gagal kirim logs: {e}")
 
-chat_id, user):
+
+# ===== MAIN MENU =====
+async def send_main_menu(context, chat_id, user):
     saldo = load_json(saldo_file)
     statistik = load_json(statistik_file)
     s = saldo.get(str(user.id), 0)
     jumlah = statistik.get(str(user.id), {}).get("jumlah", 0)
     total = statistik.get(str(user.id), {}).get("nominal", 0)
 
-    caption = (
-        f"🎉 Selamat datang di *Store Garfield*!\n\n"
+    text = (
+        f"👋 Selamat datang di *Store Garfield*!\n\n"
         f"🧑 Nama: {user.full_name}\n"
         f"🆔 ID: {user.id}\n"
         f"💰 Total Saldo Kamu: Rp{s:,}\n"
@@ -86,26 +88,28 @@ chat_id, user):
     if user.id == OWNER_ID:
         keyboard.append([InlineKeyboardButton("🛠 Admin Panel", callback_data="admin_panel")])
 
+    # --- Kirim banner TERPISAH supaya tombol tetap jalan ---
     banner_url = "https://ibb.co.com/6cnXkscb"
     try:
-        # Kirim banner + tombol menu di satu pesan
         await context.bot.send_photo(
             chat_id=chat_id,
             photo=banner_url,
-            caption=caption,
-            reply_markup=InlineKeyboardMarkup(keyboard),
+            caption="🎉 Selamat datang di Store Garfield!",
             parse_mode="Markdown"
         )
     except Exception as e:
-        print(f"Gagal kirim banner + menu: {e}")
-        # fallback jika gagal kirim photo
-        await context.bot.send_message(
-            chat_id=chat_id,
-            text=caption,
-            reply_markup=InlineKeyboardMarkup(keyboard),
-            parse_mode="Markdown"
-        )
+        print(f"Gagal kirim banner: {e}")
 
+    # --- Kirim menu utama persis kode lama ---
+    await context.bot.send_message(
+        chat_id=chat_id,
+        text=text,
+        reply_markup=InlineKeyboardMarkup(keyboard),
+        parse_mode="Markdown"
+    )
+
+
+# ===== SAFE MENU CALL =====
 async def send_main_menu_safe(update, context):
     if update.message:
         await send_main_menu(context, update.effective_chat.id, update.effective_user)
@@ -740,6 +744,7 @@ def main(): # Made With love by @govtrashit A.K.A RzkyO
 
 if __name__ == "__main__":
     main()
+
 
 
 
