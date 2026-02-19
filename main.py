@@ -63,11 +63,12 @@ def add_riwayat(uid, tipe, keterangan, jumlah):
 async def send_main_menu(context, chat_id, user):
     saldo = load_json(saldo_file)
     statistik = load_json(statistik_file)
+
     s = saldo.get(str(user.id), 0)
     jumlah = statistik.get(str(user.id), {}).get("jumlah", 0)
     total = statistik.get(str(user.id), {}).get("nominal", 0)
 
-    text = (
+    caption = (
         f"👋 Selamat datang di *Store Ekha*!\n\n"
         f"🧑 Nama: {user.full_name}\n"
         f"🆔 ID: {user.id}\n"
@@ -76,12 +77,25 @@ async def send_main_menu(context, chat_id, user):
         f"💸 Total Nominal Transaksi: Rp{total:,}"
     )
 
-    keyboard = [
-        [InlineKeyboardButton("📋 List Produk", callback_data="list_produk"),
-         InlineKeyboardButton("🛒 Stock", callback_data="cek_stok")],
+    keyboard = InlineKeyboardMarkup([
+        [InlineKeyboardButton("📋 List Produk", callback_data="list_produk")],
         [InlineKeyboardButton("💰 Deposit Saldo", callback_data="deposit")],
-        [InlineKeyboardButton("📖 Informasi Bot", callback_data="info_bot")],
-    ]
+        [InlineKeyboardButton("📖 Informasi", callback_data="info")]
+    ])
+
+    await context.bot.send_photo(
+        chat_id=chat_id,
+        photo="https://ibb.co.com/6cnXkscb",
+        caption=caption,
+        reply_markup=keyboard,
+        parse_mode="Markdown"
+    )
+    keyboard = InlineKeyboardMarkup([
+        [InlineKeyboardButton("📋 List Produk", callback_data="list_produk")],
+        [InlineKeyboardButton("💰 Deposit Saldo", callback_data="deposit")],
+        [InlineKeyboardButton("📖 Informasi", callback_data="info")]
+    ])
+
     if user.id == OWNER_ID:
         keyboard.append([InlineKeyboardButton("🛠 Admin Panel", callback_data="admin_panel")])
 
@@ -727,6 +741,7 @@ def main(): # Made With love by @govtrashit A.K.A RzkyO
 
 if __name__ == "__main__":
     main()
+
 
 
 
