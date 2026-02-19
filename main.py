@@ -295,6 +295,38 @@ async def handle_admin_panel(update, context): # HANDLE ADMIN PANEL
         text += "Tidak ada."
     await query.edit_message_text(text, parse_mode="Markdown")
 
+# HANDLE CALLBACK ADMIN MENU
+async def admin_callback(update, context):
+    query = update.callback_query
+    await query.answer()
+
+    if query.data == "admin_data":
+        await handle_admin_panel(update, context)
+
+    elif query.data == "edit_harga":
+        await query.edit_message_text(
+            "💰 *EDIT HARGA*\n\nGunakan format:\n/setharga ID HARGA\n\nContoh:\n/setharga 3 20000",
+            parse_mode="Markdown"
+        )
+
+    elif query.data == "edit_stok":
+        await query.edit_message_text(
+            "📦 *EDIT STOK*\n\nGunakan format:\n/setstok ID STOK\n\nContoh:\n/setstok 3 100",
+            parse_mode="Markdown"
+        )
+
+    elif query.data == "add_nokos":
+        await query.edit_message_text(
+            "➕ *TAMBAH NOKOS*\n\nFormat:\n/addnokos ID NOMOR IDNOKOS PASSWORD HARGA\n\nContoh:\n/addnokos 3 +62811xxx ID008 pass008 9000",
+            parse_mode="Markdown"
+        )
+
+    elif query.data == "hapus_nokos":
+        await query.edit_message_text(
+            "❌ *HAPUS NOKOS*\n\nFormat:\n/hapusnokos ID IDNOKOS\n\nContoh:\n/hapusnokos 3 ID008",
+            parse_mode="Markdown"
+        )
+
 async def handle_admin_confirm(update, context): # HANDLE ADMIN CONFIRM
     query = update.callback_query
     user_id = int(query.data.split(":")[1])
@@ -741,6 +773,7 @@ def main(): # Made With love by @govtrashit A.K.A RzkyO
 
 if __name__ == "__main__":
     main()
+
 
 
 
