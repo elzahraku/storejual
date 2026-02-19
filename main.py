@@ -11,11 +11,18 @@ from telegram.ext import (
 from datetime import datetime
 
 OWNER_ID = 1160642744
+LOG_GROUP_ID = -100XXXXXXXXXX  # GANTI ID GRUP LOGS KAMU
 produk_file = "produk.json"
 saldo_file = "saldo.json"
 deposit_file = "pending_deposit.json"
 riwayat_file = "riwayat.json"
 statistik_file = "statistik.json"
+
+async def send_logs(context, text):
+    try:
+        await context.bot.send_message(LOG_GROUP_ID, text, parse_mode="Markdown")
+    except:
+        pass
 
 def load_json(file):
     if not os.path.exists(file):
@@ -698,4 +705,5 @@ def main(): # Made With love by @govtrashit A.K.A RzkyO
 
 if __name__ == "__main__":
     main()
+
 
