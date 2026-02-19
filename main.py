@@ -69,7 +69,7 @@ async def send_main_menu(context, chat_id, user):
     total = statistik.get(str(user.id), {}).get("nominal", 0)
 
     caption = (
-        f"👋 Selamat datang di *Store Ekha*!\n\n"
+        f"👋 Selamat datang di *Store GARFIELD*!\n\n"
         f"🧑 Nama: {user.full_name}\n"
         f"🆔 ID: {user.id}\n"
         f"💰 Total Saldo Kamu: Rp{s:,}\n"
@@ -710,17 +710,14 @@ async def handle_info_bot(update, context):  # HANDLE INFO BOT
     text = (
         "📖 *INFORMASI BOT*\n"
         "╽─────────────────────────────╮\n"
-        "├ 🧠 *Nama Bot*: `Store Ekha`\n"
+        "├ 🧠 *Nama Bot*: `Store Garfield`\n"
         "├ 👨‍💻 *Author*: [@govtrashit](https://t.me/govtrashit)\n"
         "├ 🛒 *Fungsi*: Penjualan akun digital otomatis\n"
         "├ ⚙️ *Fitur*: Deposit, Pengiriman Akun, Statistik\n"
-        "├ 🧰 *Teknologi*: Python, Telegram Bot API\n"
-        "├ 🗓️ *Update*: 18 Juni 2025\n"
         "╰─────────────────────────────╯\n\n"
-        "🌐 *Sosial Media Developer:*\n"
-        "• GitHub: [@rzzky](https://github.com/rzzky)\n"
-        "• Instagram: [@rizzkyo](https://instagram.com/rizzkyo)\n\n"
-        "💬 *Saran / kritik?* Hubungi [@govtrashit](https://t.me/govtrashit)"
+        "🌐 *info Media Developer:*\n"
+        "• Admin: [@Brsik23](https://t.me/storegarf)\n"
+        "💬 *Saran / kritik?* Hubungi [@Brsik23](https://t.me/storegarf)"
     )
 
     keyboard = InlineKeyboardMarkup([
@@ -911,6 +908,7 @@ def main(): # Made With love by @govtrashit A.K.A RzkyO
 
 if __name__ == "__main__":
     main()
+
 
 
 
