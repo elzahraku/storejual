@@ -1,21 +1,20 @@
 {
   "1": {
     "nama": "UPVIEWERS CHANNEL TELEGRAM 1000 VIEW",
-    "kategori": "jasa",
-    "stok": 9999,
-    "harga": 15000,
+    "kategori": "5kviews",
+    "stok": 99,
+    "harga": 10000,
     "data": []
   },
 
   "2": {
     "nama": "USERBOT TELEGRAM INSTALL",
-    "kategori": "jasa",
+    "kategori": "1bln",
     "stok": 9999,
-    "harga": 15000,
+    "harga": 20000,
     "data": []
   },
 
-{
   "3": {
     "nama": "NOKOS TELEGRAM V2",
     "kategori": "akun",
@@ -23,62 +22,62 @@
     "data": [
       {
         "nomor": "+6281110001",
-        "id": "ID001",
+        "id": "ID1",
         "password": "nokos001",
-        "harga": 7000,
+        "harga": 25000,
         "status": "ready"
       },
       {
         "nomor": "+6281110002",
-        "id": "ID002",
+        "id": "ID2",
         "password": "nokos002",
-        "harga": 7500,
+        "harga": 20000,
         "status": "ready"
       },
       {
         "nomor": "+6281110003",
-        "id": "ID003",
+        "id": "ID5",
         "password": "nokos003",
-        "harga": 8000,
+        "harga": 15000,
         "status": "ready"
       },
       {
         "nomor": "+6281110004",
-        "id": "ID004",
+        "id": "ID6",
         "password": "nokos004",
-        "harga": 8500,
+        "harga": 10000,
         "status": "ready"
       },
       {
         "nomor": "+6281110005",
-        "id": "ID005",
+        "id": "ID7",
         "password": "nokos005",
-        "harga": 9000,
+        "harga": 8000,
         "status": "ready"
       },
       {
         "nomor": "+6281110006",
-        "id": "ID006",
+        "id": "ID8usa",
         "password": "nokos006",
-        "harga": 9500,
+        "harga": 15000,
         "status": "ready"
       },
       {
         "nomor": "+6281110007",
-        "id": "ID007",
+        "id": "ID6,9digit",
         "password": "nokos007",
-        "harga": 10000,
+        "harga": 35000,
         "status": "ready"
       }
     ]
-  }
-}
+  },
 
   "4": {
-    "nama": "SUNTIK MEMBER GC 100",
-    "kategori": "jasa",
+    "nama": "SUNTIK MEMBER GC",
+    "kategori": "per1k",
     "stok": 9999,
     "harga": 20000,
     "data": []
   }
 }
+  
