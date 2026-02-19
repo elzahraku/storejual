@@ -61,7 +61,7 @@ async def send_main_menu(context, chat_id, user):
     jumlah = statistik.get(str(user.id), {}).get("jumlah", 0)
     total = statistik.get(str(user.id), {}).get("nominal", 0)
 
-    text = (
+    caption = (
         f"👋 Selamat datang di *Store Garfield*!\n\n"
         f"🧑 Nama: {user.full_name}\n"
         f"🆔 ID: {user.id}\n"
@@ -79,9 +79,11 @@ async def send_main_menu(context, chat_id, user):
     if user.id == OWNER_ID:
         keyboard.append([InlineKeyboardButton("🛠 Admin Panel", callback_data="admin_panel")])
 
-    await context.bot.send_message(
+    banner_url = "https://ibb.co.com/6cnXkscb"  # link baner lama lo
+    await context.bot.send_photo(
         chat_id=chat_id,
-        text=text,
+        photo=banner_url,
+        caption=caption,
         reply_markup=InlineKeyboardMarkup(keyboard),
         parse_mode="Markdown"
     )
@@ -717,6 +719,7 @@ def main(): # Made With love by @govtrashit A.K.A RzkyO
 
 if __name__ == "__main__":
     main()
+
 
 
 
