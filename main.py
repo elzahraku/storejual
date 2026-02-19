@@ -120,7 +120,6 @@ async def send_main_menu_safe(update, context):
             pass
         await send_main_menu(context, update.callback_query.from_user.id, update.callback_query.from_user)
 
-async def handle_list_produk(update, context): # HANDLE LIST PRODUK
 async def handle_list_produk(update, context):  # HANDLE LIST PRODUK
     query = update.callback_query
     produk = load_json(produk_file)
@@ -745,6 +744,7 @@ def main(): # Made With love by @govtrashit A.K.A RzkyO
 
 if __name__ == "__main__":
     main()
+
 
 
 
