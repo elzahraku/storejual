@@ -367,6 +367,140 @@ async def handle_admin_final(update, context): # HANDLE ADMIN FINAL
     else:
         await query.edit_message_caption("❌ Data deposit tidak ditemukan.")
 
+# ===== ADMIN PANEL INLINE =====
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup
+
+# Tampilkan menu admin
+async def admin_menu(update, context):
+    if update.effective_user.id != OWNER_ID:
+        return await update.message.reply_text("❌ Khusus Owner")
+    
+    keyboard = [
+        [InlineKeyboardButton("📊 Data User", callback_data="admin_data")],
+        [InlineKeyboardButton("💰 Edit Harga", callback_data="edit_harga")],
+        [InlineKeyboardButton("📦 Edit Stok", callback_data="edit_stok")],
+        [InlineKeyboardButton("➕ Tambah Nokos", callback_data="add_nokos")],
+        [InlineKeyboardButton("❌ Hapus Nokos", callback_data="hapus_nokos")]
+    ]
+    await update.message.reply_text(
+        "⚙ *ADMIN PANEL*",
+        reply_markup=InlineKeyboardMarkup(keyboard),
+        parse_mode="Markdown"
+    )
+
+# Handle tombol admin
+async def admin_callback(update, context):
+    query = update.callback_query
+    await query.answer()
+
+    data_json = load_json(produk_file)
+
+    if query.data == "admin_data":
+        # Tampilkan semua user & pending deposit
+        saldo = load_json(saldo_file)
+        pending = load_json(deposit_file)
+        text = "*📊 Data User:*\n"
+        for u, s in saldo.items():
+            text += f"• ID {u}: Rp{s:,}\n"
+        text += "\n*⏳ Pending Deposit:*\n"
+        if pending:
+            for p in pending:
+                text += f"- @{p['username']} ({p['user_id']}) Rp{p['nominal']:,}\n"
+        else:
+            text += "Tidak ada."
+        await query.edit_message_text(text, parse_mode="Markdown")
+
+    elif query.data == "edit_harga":
+        keyboard = [
+            [InlineKeyboardButton(f"{v['nama']} (ID {k})", callback_data=f"edit_harga_{k}")]
+            for k, v in data_json.items()
+        ]
+        await query.edit_message_text(
+            "💰 Pilih produk untuk edit harga:",
+            reply_markup=InlineKeyboardMarkup(keyboard)
+        )
+
+    elif query.data.startswith("edit_harga_"):
+        produk_id = query.data.split("_")[-1]
+        context.user_data["edit_harga_id"] = produk_id
+        await query.edit_message_text(
+            f"💰 Masukkan harga baru untuk *{data_json[produk_id]['nama']}*:\nFormat: ketik angka saja",
+            parse_mode="Markdown"
+        )
+
+    elif query.data == "edit_stok":
+        keyboard = [
+            [InlineKeyboardButton(f"{v['nama']} (ID {k})", callback_data=f"edit_stok_{k}")]
+            for k, v in data_json.items()
+        ]
+        await query.edit_message_text(
+            "📦 Pilih produk untuk edit stok:",
+            reply_markup=InlineKeyboardMarkup(keyboard)
+        )
+
+    elif query.data.startswith("edit_stok_"):
+        produk_id = query.data.split("_")[-1]
+        context.user_data["edit_stok_id"] = produk_id
+        await query.edit_message_text(
+            f"📦 Masukkan stok baru untuk *{data_json[produk_id]['nama']}*:\nFormat: ketik angka saja",
+            parse_mode="Markdown"
+        )
+
+    elif query.data == "add_nokos":
+        keyboard = [
+            [InlineKeyboardButton(f"{v['nama']} (ID {k})", callback_data=f"add_nokos_{k}")]
+            for k, v in data_json.items()
+        ]
+        await query.edit_message_text(
+            "➕ Pilih produk untuk tambah akun Nokos:",
+            reply_markup=InlineKeyboardMarkup(keyboard)
+        )
+
+    elif query.data.startswith("add_nokos_"):
+        produk_id = query.data.split("_")[-1]
+        context.user_data["add_nokos_id"] = produk_id
+        await query.edit_message_text(
+            f"➕ Masukkan data akun baru untuk *{data_json[produk_id]['nama']}*\nFormat:\nNOMOR IDNOKOS PASSWORD HARGA",
+            parse_mode="Markdown"
+        )
+
+    elif query.data == "hapus_nokos":
+        keyboard = [
+            [InlineKeyboardButton(f"{v['nama']} (ID {k})", callback_data=f"hapus_nokos_{k}")]
+            for k, v in data_json.items()
+        ]
+        await query.edit_message_text(
+            "❌ Pilih produk untuk hapus akun Nokos:",
+            reply_markup=InlineKeyboardMarkup(keyboard)
+        )
+
+    elif query.data.startswith("hapus_nokos_"):
+        produk_id = query.data.split("_")[-1]
+        context.user_data["hapus_nokos_id"] = produk_id
+        data_produk = data_json[produk_id]
+        if "data" in data_produk and data_produk["data"]:
+            keyboard = [
+                [InlineKeyboardButton(f"{x['id']}", callback_data=f"hapus_akun_{x['id']}")]
+                for x in data_produk["data"]
+            ]
+            await query.edit_message_text(
+                f"❌ Pilih akun untuk dihapus:",
+                reply_markup=InlineKeyboardMarkup(keyboard)
+            )
+        else:
+            await query.edit_message_text("Tidak ada akun Nokos tersedia untuk dihapus.")
+
+    elif query.data.startswith("hapus_akun_"):
+        akun_id = query.data.split("_")[-1]
+        produk_id = context.user_data.get("hapus_nokos_id")
+        if not produk_id:
+            return await query.edit_message_text("Terjadi error, coba lagi.")
+        data_produk = data_json[produk_id]
+        data_produk["data"] = [x for x in data_produk["data"] if x["id"] != akun_id]
+        data_produk["stok"] = len(data_produk["data"])
+        save_json(produk_file, data_json)
+        await query.edit_message_text(f"✅ Akun {akun_id} berhasil dihapus dari produk {produk_id}")
+
 async def handle_admin_reject(update, context): # HANDLE ADMIN REJECT
     query = update.callback_query
     user_id = int(query.data.split(":")[1])
@@ -773,6 +907,7 @@ def main(): # Made With love by @govtrashit A.K.A RzkyO
 
 if __name__ == "__main__":
     main()
+
 
 
 
