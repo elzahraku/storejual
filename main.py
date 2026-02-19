@@ -482,6 +482,16 @@ async def handle_confirm_order(update, context): # HANDLE CONFIRM ORDER
             parse_mode="Markdown"
         )
 
+    await send_logs(
+    context, 
+    f"📦 TRANSAKSI BARU\n"
+    f"User: {query.from_user.full_name}\n"
+    f"ID: {uid}\n"
+    f"Produk: {item['nama']} x{jumlah}\n"
+    f"Total: Rp{total:,}\n"
+    f"Sisa Saldo: Rp{saldo[uid]:,}"
+)
+    
     context.user_data.pop("konfirmasi", None)
     await send_main_menu(context, query.from_user.id, query.from_user)
 
@@ -695,6 +705,7 @@ def main(): # Made With love by @govtrashit A.K.A RzkyO
 
 if __name__ == "__main__":
     main()
+
 
 
 
