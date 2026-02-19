@@ -901,13 +901,13 @@ def main(): # Made With love by @govtrashit A.K.A RzkyO
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_text))
     app.add_handler(MessageHandler(filters.PHOTO, handle_photo))
     app.add_handler(CommandHandler("admin", admin_menu))
-    app.add_handler(CallbackQueryHandler(admin_callback))
     app.run_polling()
     
     
 
 if __name__ == "__main__":
     main()
+
 
 
 
