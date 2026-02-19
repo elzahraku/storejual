@@ -62,13 +62,14 @@ async def send_logs(context, text):
         print(f"Gagal kirim logs: {e}")
 
 async def send_main_menu(context, chat_id, user):
+async def send_main_menu(context, chat_id, user):
     saldo = load_json(saldo_file)
     statistik = load_json(statistik_file)
     s = saldo.get(str(user.id), 0)
     jumlah = statistik.get(str(user.id), {}).get("jumlah", 0)
     total = statistik.get(str(user.id), {}).get("nominal", 0)
 
-    caption = (
+    text = (
         f"👋 Selamat datang di *Store Garfield*!\n\n"
         f"🧑 Nama: {user.full_name}\n"
         f"🆔 ID: {user.id}\n"
@@ -86,20 +87,35 @@ async def send_main_menu(context, chat_id, user):
     if user.id == OWNER_ID:
         keyboard.append([InlineKeyboardButton("🛠 Admin Panel", callback_data="admin_panel")])
 
-    banner_url = "https://ibb.co.com/6cnXkscb"  # link baner lama lo
-    await context.bot.send_photo(
+    # --- BANER TERPISAH supaya tombol tetap jalan ---
+    banner_url = "https://ibb.co.com/6cnXkscb"
+    try:
+        await context.bot.send_photo(
+            chat_id=chat_id,
+            photo=banner_url,
+            caption="🎉 Selamat datang di Store Garfield!",
+            parse_mode="Markdown"
+        )
+    except Exception as e:
+        print(f"Gagal kirim banner: {e}")
+
+    # --- MENU LAMA UTUH ---
+    await context.bot.send_message(
         chat_id=chat_id,
-        photo=banner_url,
-        caption=caption,
+        text=text,
         reply_markup=InlineKeyboardMarkup(keyboard),
         parse_mode="Markdown"
     )
+
 
 async def send_main_menu_safe(update, context):
     if update.message:
         await send_main_menu(context, update.effective_chat.id, update.effective_user)
     elif update.callback_query:
-        await update.callback_query.message.delete()
+        try:
+            await update.callback_query.message.delete()
+        except:
+            pass
         await send_main_menu(context, update.callback_query.from_user.id, update.callback_query.from_user)
 
 async def handle_list_produk(update, context): # HANDLE LIST PRODUK
@@ -726,6 +742,7 @@ def main(): # Made With love by @govtrashit A.K.A RzkyO
 
 if __name__ == "__main__":
     main()
+
 
 
 
