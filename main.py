@@ -426,12 +426,15 @@ async def handle_qty_minus(update, context): # HANDLE QTY MINUS
     await query.edit_message_text(text, reply_markup=keyboard)
 
 
-async def handle_confirm_order(update, context): # HANDLE CONFIRM ORDER
+async def handle_confirm_order(update, context):  # HANDLE CONFIRM ORDER
     query = update.callback_query
+    await query.answer()
+
     uid = str(query.from_user.id)
     produk = load_json(produk_file)
     saldo = load_json(saldo_file)
     info = context.user_data.get("konfirmasi")
+
     if not info:
         await query.answer("❌ Data pesanan tidak ditemukan", show_alert=True)
         return
@@ -439,6 +442,7 @@ async def handle_confirm_order(update, context): # HANDLE CONFIRM ORDER
     produk_id = info["produk_id"]
     jumlah = info["jumlah"]
     item = produk.get(produk_id)
+
     if not item:
         await query.edit_message_text("❌ Produk tidak ditemukan.")
         return
@@ -462,15 +466,19 @@ async def handle_confirm_order(update, context): # HANDLE CONFIRM ORDER
         await query.edit_message_text("❌ Stok atau akun tidak mencukupi.")
         return
 
+    # ================== PROSES TRANSAKSI ==================
     saldo[uid] -= total
     item["stok"] -= jumlah
     akun_terpakai = [item["akun_list"].pop(0) for _ in range(jumlah)]
+
     save_json(saldo_file, saldo)
     save_json(produk_file, produk)
     add_riwayat(uid, "BELI", f"{item['nama']} x{jumlah}", total)
 
+    # ================== BUAT FILE AKUN ==================
     os.makedirs("akun_dikirim", exist_ok=True)
     file_path = f"akun_dikirim/{uid}_{produk_id}_x{jumlah}.txt"
+
     with open(file_path, "w") as f:
         for i, akun in enumerate(akun_terpakai, start=1):
             f.write(
@@ -481,6 +489,7 @@ async def handle_confirm_order(update, context): # HANDLE CONFIRM ORDER
                 "---------------------------\n"
             )
 
+    # ================== KIRIM FILE KE USER ==================
     with open(file_path, "rb") as f:
         await context.bot.send_document(
             chat_id=query.from_user.id,
@@ -489,6 +498,19 @@ async def handle_confirm_order(update, context): # HANDLE CONFIRM ORDER
             parse_mode="Markdown"
         )
 
+    # ================== KIRIM LOG KE GROUP ADMIN ==================
+    await send_logs(
+        context,
+        f"""📦 *TRANSAKSI BARU*
+👤 User: {query.from_user.full_name}
+🆔 ID: `{uid}`
+📦 Produk: {item['nama']} x{jumlah}
+💰 Total: Rp{total:,}
+💰 Sisa Saldo: Rp{saldo[uid]:,}
+"""
+    )
+
+    # ================== CLEANUP ==================
     context.user_data.pop("konfirmasi", None)
     await send_main_menu(context, query.from_user.id, query.from_user)
 
@@ -705,6 +727,7 @@ def main(): # Made With love by @govtrashit A.K.A RzkyO
 
 if __name__ == "__main__":
     main()
+
 
 
 
