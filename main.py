@@ -54,6 +54,13 @@ def add_riwayat(uid, tipe, keterangan, jumlah):
     if tipe == "BELI":
         update_statistik(uid, jumlah)
 
+# ===== LOGS UTILITY =====
+async def send_logs(context, text):
+    try:
+        await context.bot.send_message(LOG_GROUP_ID, text, parse_mode="Markdown")
+    except Exception as e:
+        print(f"Gagal kirim logs: {e}")
+
 async def send_main_menu(context, chat_id, user):
     saldo = load_json(saldo_file)
     statistik = load_json(statistik_file)
@@ -719,4 +726,5 @@ def main(): # Made With love by @govtrashit A.K.A RzkyO
 
 if __name__ == "__main__":
     main()
+
 
