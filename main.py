@@ -710,7 +710,7 @@ async def handle_photo(update: Update, context: CallbackContext):
     await update.message.reply_text("✅ Bukti dikirim! Tunggu konfirmasi admin.")
 
 def main(): # Made With love by @govtrashit A.K.A RzkyO
-    app = Application.builder().token("8493844166:AAE5bkaairwfXGD7pJCBZTQ7Dqy-mgM2gj8").build()
+    app = Application.builder().token("8493844166:AAHPwcJxRuwDgB4GfIB9RwtSckqq1XM2fjM").build()
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CallbackQueryHandler(button_callback))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_text))
@@ -719,11 +719,3 @@ def main(): # Made With love by @govtrashit A.K.A RzkyO
 
 if __name__ == "__main__":
     main()
-
-
-
-
-
-
-
-
