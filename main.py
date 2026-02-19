@@ -184,21 +184,20 @@ async def handle_cek_stok(update, context): # HANDLE CEK STOK
         text=msg,
         reply_markup=reply_keyboard,
         parse_mode="Markdown"
-    )
-
-async def handle_produk_detail(update, context): # HANDLE PRODUK DETAIL
+        
+async def handle_produk_detail(update, context):  # HANDLE PRODUK DETAIL
     query = update.callback_query
     data = query.data
     produk = load_json(produk_file)
     item = produk.get(data)
 
-    if item["stok"] <= 0:
+    if len(item.get("akun_list", [])) <= 0:
         await query.answer("Produk habis", show_alert=True)
         return
 
-    harga = item["harga"]
-    tipe = item["akun_list"][0]["tipe"] if item["akun_list"] else "-"
-    stok = item["stok"]
+    harga = item.get("harga", 0)
+    tipe = item.get("akun_list", [{}])[0].get("tipe", "-")
+    stok = len(item.get("akun_list", []))
 
     context.user_data["konfirmasi"] = {
         "produk_id": data,
@@ -744,6 +743,7 @@ def main(): # Made With love by @govtrashit A.K.A RzkyO
 
 if __name__ == "__main__":
     main()
+
 
 
 
