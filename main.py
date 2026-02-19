@@ -121,15 +121,16 @@ async def send_main_menu_safe(update, context):
         await send_main_menu(context, update.callback_query.from_user.id, update.callback_query.from_user)
 
 async def handle_list_produk(update, context): # HANDLE LIST PRODUK
+async def handle_list_produk(update, context):  # HANDLE LIST PRODUK
     query = update.callback_query
     produk = load_json(produk_file)
     msg = "*LIST PRODUK*\n"
     keyboard = []
     row = []
 
-    for i, (pid, item) in enumerate(produk.items(), start=1):
+    for pid, item in produk.items():
         msg += f"{pid} {item['nama']} - Rp{item.get('harga', 0):,}\n"
-        if item["stok"] > 0:
+        if len(item.get("akun_list", [])) > 0:  # pake akun_list buat cek stok
             row.append(KeyboardButton(pid))
         else:
             row.append(KeyboardButton(f"{pid} SOLDOUT ❌"))
@@ -744,6 +745,7 @@ def main(): # Made With love by @govtrashit A.K.A RzkyO
 
 if __name__ == "__main__":
     main()
+
 
 
 
