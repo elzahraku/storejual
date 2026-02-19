@@ -1,76 +1,84 @@
 {
   "1": {
-    "nama": "YOUTUBE 1 BULAN FAMHEAD",
-    "stok": 3,
-    "harga": 5000,
-    "akun_list": [
-      {
-        "username": "ytuser1@mail.com",
-        "password": "pass123",
-        "tipe": "1 Bulan Famhead"
-      },
-      {
-        "username": "ytuser2@mail.com",
-        "password": "pass456",
-        "tipe": "1 Bulan Famhead"
-      },
-      {
-        "username": "ytuser3@mail.com",
-        "password": "pass789",
-        "tipe": "1 Bulan Famhead"
-      }
-    ]
+    "nama": "UPVIEWERS CHANNEL TELEGRAM 1000 VIEW",
+    "kategori": "jasa",
+    "stok": 9999,
+    "harga": 15000,
+    "data": []
   },
+
   "2": {
-    "nama": "CANVA PRO 12 BULAN",
-    "stok": 0,
-    "harga": 55000,
-    "akun_list": []
+    "nama": "USERBOT TELEGRAM INSTALL",
+    "kategori": "jasa",
+    "stok": 9999,
+    "harga": 15000,
+    "data": []
   },
+
+{
   "3": {
-    "nama": "CANVA PRO LIFETIME",
-    "stok": 2,
-    "harga": 100000,
-    "akun_list": [
+    "nama": "NOKOS TELEGRAM V2",
+    "kategori": "akun",
+    "stok": 7,
+    "data": [
       {
-        "username": "canvalife1@mail.com",
-        "password": "life123",
-        "tipe": "Lifetime"
+        "nomor": "+6281110001",
+        "id": "ID001",
+        "password": "nokos001",
+        "harga": 7000,
+        "status": "ready"
       },
       {
-        "username": "canvalife2@mail.com",
-        "password": "life456",
-        "tipe": "Lifetime"
+        "nomor": "+6281110002",
+        "id": "ID002",
+        "password": "nokos002",
+        "harga": 7500,
+        "status": "ready"
+      },
+      {
+        "nomor": "+6281110003",
+        "id": "ID003",
+        "password": "nokos003",
+        "harga": 8000,
+        "status": "ready"
+      },
+      {
+        "nomor": "+6281110004",
+        "id": "ID004",
+        "password": "nokos004",
+        "harga": 8500,
+        "status": "ready"
+      },
+      {
+        "nomor": "+6281110005",
+        "id": "ID005",
+        "password": "nokos005",
+        "harga": 9000,
+        "status": "ready"
+      },
+      {
+        "nomor": "+6281110006",
+        "id": "ID006",
+        "password": "nokos006",
+        "harga": 9500,
+        "status": "ready"
+      },
+      {
+        "nomor": "+6281110007",
+        "id": "ID007",
+        "password": "nokos007",
+        "harga": 10000,
+        "status": "ready"
       }
     ]
-  },
+  }
+}
+
   "4": {
-    "nama": "EXPRESS VPN 30 HARI",
-    "stok": 1,
-    "harga": 30000,
-    "akun_list": [
-      {
-        "username": "vpnuser1@mail.com",
-        "password": "vpnpass",
-        "tipe": "30 Hari"
-      }
-    ]
-  },
-  "5": {
-    "nama": "SPOTIFY PREMIUM 1B STUDENT GP",
-    "stok": 2,
-    "harga": 25000,
-    "akun_list": [
-      {
-        "username": "spotify1@mail.com",
-        "password": "spo123",
-        "tipe": "1 Bulan Student"
-      },
-      {
-        "username": "spotify2@mail.com",
-        "password": "spo456",
-        "tipe": "1 Bulan Student"
-      }
-    ]
+    "nama": "SUNTIK MEMBER GC 100",
+    "kategori": "jasa",
+    "stok": 9999,
+    "harga": 20000,
+    "data": []
   }
 }
