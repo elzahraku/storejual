@@ -6,7 +6,6 @@
     "harga": 10000,
     "data": []
   },
-
   "2": {
     "nama": "USERBOT TELEGRAM INSTALL",
     "kategori": "1bln",
@@ -14,66 +13,90 @@
     "harga": 20000,
     "data": []
   },
-
   "3": {
-    "nama": "NOKOS TELEGRAM ID1"
+    "nama": "NOKOS TELEGRAM ID1",
+    "akun_list": [
+      {
         "nomor": "+6281110001",
         "id": "ID1 Indo",
         "password": "nokos001",
         "harga": 25000,
         "status": "ready"
-      },
-   
+      }
+    ]
+  },
   "4": {
     "nama": "NOKOS TELEGRAM ID2",
+    "akun_list": [
       {
         "nomor": "+6281110002",
-        "id": "ID2 INDO",
+        "id": "ID2 Indo",
         "password": "nokos002",
         "harga": 20000,
         "status": "ready"
-      },
-     
+      }
+    ]
+  },
   "5": {
+    "nama": "NOKOS TELEGRAM ID5",
+    "akun_list": [
+      {
         "nomor": "+6281110003",
         "id": "ID5",
         "password": "nokos003",
         "harga": 15000,
         "status": "ready"
-      },
-    
-  "6": {    
+      }
+    ]
+  },
+  "6": {
+    "nama": "NOKOS TELEGRAM ID6",
+    "akun_list": [
+      {
         "nomor": "+6281110004",
         "id": "ID6",
         "password": "nokos004",
         "harga": 10000,
         "status": "ready"
-      },
-    
- "7": { 
+      }
+    ]
+  },
+  "7": {
+    "nama": "NOKOS TELEGRAM ID7",
+    "akun_list": [
+      {
         "nomor": "+6281110005",
         "id": "ID7",
         "password": "nokos005",
         "harga": 8000,
         "status": "ready"
-      },
-    
- "8": { 
+      }
+    ]
+  },
+  "8": {
+    "nama": "NOKOS TELEGRAM IDUSA",
+    "akun_list": [
+      {
         "nomor": "+6281110006",
         "id": "ID8usa",
         "password": "nokos006",
         "harga": 15000,
         "status": "ready"
-      },
-      
+      }
+    ]
+  },
   "9": {
+    "nama": "NOKOS TELEGRAM 9digit ID6",
+    "akun_list": [
+      {
         "nomor": "+6281110007",
         "id": "ID6,9digit",
         "password": "nokos007",
         "harga": 35000,
         "status": "ready"
       }
-  
+    ]
+  },
   "10": {
     "nama": "SUNTIK MEMBER GC",
     "kategori": "per1k",
@@ -82,5 +105,3 @@
     "data": []
   }
 }
-  
-
