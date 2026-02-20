@@ -636,6 +636,7 @@ callback_handlers = {
     "back": handle_back,
     "back_to_produk": handle_back_to_produk,
     "ignore": handle_ignore,
+    "direct_order": handle_direct_order
 }
 
 async def button_callback(update: Update, context: CallbackContext):
@@ -804,6 +805,7 @@ def main(): # Made With love by @govtrashit A.K.A RzkyO
 
 if __name__ == "__main__":
     main()
+
 
 
 
