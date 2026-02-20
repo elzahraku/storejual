@@ -120,29 +120,31 @@ async def send_main_menu_safe(update, context):
             pass
         await send_main_menu(context, update.callback_query.from_user.id, update.callback_query.from_user)
 
-async def handle_list_produk(update, context):  # HANDLE LIST PRODUK
+# ===== HANDLE LIST PRODUK =====
+async def handle_list_produk(update, context):
     query = update.callback_query
     produk = load_json(produk_file)
     msg = "*LIST PRODUK*\n"
     keyboard = []
-    row = []
 
     for pid, item in produk.items():
-        msg += f"{pid} {item['nama']} - Rp{item.get('harga', 0):,}\n"
-        if len(item.get("akun_list", [])) > 0:  # pake akun_list buat cek stok
-            row.append(KeyboardButton(pid))
+        harga = item.get("harga", 0)
+        msg += f"{pid} {item['nama']} - Rp{harga:,}\n"
+
+        # cek stok berdasarkan akun_list atau stok
+        if item.get("akun_list") and len(item["akun_list"]) > 0:
+            keyboard.append([KeyboardButton(pid)])
+        elif item.get("stok", 0) > 0:
+            keyboard.append([KeyboardButton(pid)])
         else:
-            row.append(KeyboardButton(f"{pid} SOLDOUT ❌"))
-        if len(row) == 3:
-            keyboard.append(row)
-            row = []
+            keyboard.append([KeyboardButton(f"{pid} SOLDOUT ❌")])
 
-    if row:
-        keyboard.append(row)
-
+    # tombol kembali
     keyboard.append([KeyboardButton("🔙 Kembali")])
 
-    reply_keyboard = ReplyKeyboardMarkup(keyboard, resize_keyboard=True, one_time_keyboard=True)
+    reply_keyboard = ReplyKeyboardMarkup(
+        keyboard, resize_keyboard=True, one_time_keyboard=True
+    )
 
     await query.message.delete()
     await context.bot.send_message(
@@ -153,30 +155,29 @@ async def handle_list_produk(update, context):  # HANDLE LIST PRODUK
     )
 
 
-async def handle_cek_stok(update, context): # HANDLE CEK STOK
+async def handle_cek_stok(update, context):  # HANDLE CEK STOK
     query = update.callback_query
     produk = load_json(produk_file)
     now = datetime.now().strftime("%d/%m/%Y, %H:%M:%S")
     msg = f"*Informasi Stok*\n- {now}\n\n"
     keyboard = []
-    row = []
 
     for pid, item in produk.items():
-        msg += f"{pid}. {item['nama']} ➔ {item['stok']}x\n"
-        if item["stok"] > 0:
-            row.append(KeyboardButton(pid))
+        # cek stok dari akun_list atau stok biasa
+        stok = len(item.get("akun_list", [])) if item.get("akun_list") else item.get("stok", 0)
+        msg += f"{pid}. {item['nama']} ➔ {stok}x\n"
+
+        if stok > 0:
+            keyboard.append([KeyboardButton(pid)])
         else:
-            row.append(KeyboardButton(f"{pid} SOLDOUT ❌"))
-        if len(row) == 3:
-            keyboard.append(row)
-            row = []
+            keyboard.append([KeyboardButton(f"{pid} SOLDOUT ❌")])
 
-    if row:
-        keyboard.append(row)
-
+    # tombol kembali
     keyboard.append([KeyboardButton("🔙 Kembali")])
 
-    reply_keyboard = ReplyKeyboardMarkup(keyboard, resize_keyboard=True, one_time_keyboard=True)
+    reply_keyboard = ReplyKeyboardMarkup(
+        keyboard, resize_keyboard=True, one_time_keyboard=True
+    )
 
     await query.message.delete()
     await context.bot.send_message(
@@ -184,6 +185,7 @@ async def handle_cek_stok(update, context): # HANDLE CEK STOK
         text=msg,
         reply_markup=reply_keyboard,
         parse_mode="Markdown"
+    )
         
 async def handle_produk_detail(update, context):  # HANDLE PRODUK DETAIL
     query = update.callback_query
@@ -743,6 +745,7 @@ def main(): # Made With love by @govtrashit A.K.A RzkyO
 
 if __name__ == "__main__":
     main()
+
 
 
 
