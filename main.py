@@ -155,6 +155,62 @@ async def handle_list_produk(update, context):
         parse_mode="Markdown"
     )
 
+# ===== HANDLE ORDER LANGSUNG =====
+async def handle_direct_order(update, context):
+    query = update.callback_query
+    user = query.from_user
+
+    text = (
+        f"👋 Halo {user.full_name}!\n\n"
+        "Silakan tulis detail pesanan langsung ke admin.\n"
+        "Format contoh:\n"
+        "`Nama Produk - Jumlah - Keterangan lain`\n\n"
+        "Pesan kamu akan langsung dikirim ke admin."
+    )
+
+    keyboard = InlineKeyboardMarkup([
+        [InlineKeyboardButton("🔙 Kembali", callback_data="back_to_menu")]
+    ])
+
+    await query.message.delete()
+    await context.bot.send_message(
+        chat_id=user.id,
+        text=text,
+        reply_markup=keyboard,
+        parse_mode="Markdown"
+    )
+
+    # simpan state agar pesan berikutnya diteruskan ke admin
+    context.user_data["direct_order"] = True
+
+# ===== FORWARD PESAN KE ADMIN =====
+ADMIN_USERNAME = "@Brsik23"  # username admin
+
+async def forward_direct_order(update, context):
+    user = update.message.from_user
+
+    # cek apakah user sedang di mode direct order
+    if context.user_data.get("direct_order"):
+        msg = update.message.text
+        await context.bot.send_message(
+            chat_id=ADMIN_USERNAME,
+            text=f"📨 Pesanan baru dari {user.full_name} (ID: {user.id}):\n{msg}"
+        )
+        await update.message.reply_text("✅ Pesanan kamu sudah dikirim ke admin.")
+
+        # hapus flag biar pesan berikutnya nggak otomatis diteruskan
+        context.user_data.pop("direct_order", None)
+    keyboard = InlineKeyboardMarkup([
+        [InlineKeyboardButton("🔙 Kembali", callback_data="back_to_menu")]
+    ])
+
+    await query.message.delete()
+    await context.bot.send_message(
+        chat_id=user.id,
+        text=text,
+        reply_markup=keyboard,
+        parse_mode="Markdown"
+    )
 
 async def handle_cek_stok(update, context):  # HANDLE CEK STOK
     query = update.callback_query
@@ -746,6 +802,7 @@ def main(): # Made With love by @govtrashit A.K.A RzkyO
 
 if __name__ == "__main__":
     main()
+
 
 
 
