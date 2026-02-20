@@ -80,11 +80,12 @@ async def send_main_menu(context, chat_id, user):
     )
 
     keyboard = [
-        [InlineKeyboardButton("📋 List Produk", callback_data="list_produk"),
-         InlineKeyboardButton("🛒 Stock", callback_data="cek_stok")],
-        [InlineKeyboardButton("💰 Deposit Saldo", callback_data="deposit")],
-        [InlineKeyboardButton("📖 Informasi Bot", callback_data="info_bot")],
-    ]
+    [InlineKeyboardButton("📋 List Produk", callback_data="list_produk"),
+     InlineKeyboardButton("🛒 Stock", callback_data="cek_stok")],
+    [InlineKeyboardButton("💰 Deposit Saldo", callback_data="deposit")],
+    [InlineKeyboardButton("📖 Informasi Bot", callback_data="info_bot")],
+    [InlineKeyboardButton("📝 Order Langsung", callback_data="direct_order")]  # tombol baru
+]
     if user.id == OWNER_ID:
         keyboard.append([InlineKeyboardButton("🛠 Admin Panel", callback_data="admin_panel")])
 
@@ -745,6 +746,7 @@ def main(): # Made With love by @govtrashit A.K.A RzkyO
 
 if __name__ == "__main__":
     main()
+
 
 
 
