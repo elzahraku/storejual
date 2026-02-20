@@ -16,63 +16,65 @@
   },
 
   "3": {
-    "nama": "NOKOS TELEGRAM V2",
-    "kategori": "akun",
-    "stok": 7,
-    "data": [
-      {
+    "nama": "NOKOS TELEGRAM ID1"
         "nomor": "+6281110001",
-        "id": "ID1",
+        "id": "ID1 Indo",
         "password": "nokos001",
         "harga": 25000,
         "status": "ready"
       },
+   
+  "4": {
+    "nama": "NOKOS TELEGRAM ID2",
       {
         "nomor": "+6281110002",
-        "id": "ID2",
+        "id": "ID2 INDO",
         "password": "nokos002",
         "harga": 20000,
         "status": "ready"
       },
-      {
+     
+  "5": {
         "nomor": "+6281110003",
         "id": "ID5",
         "password": "nokos003",
         "harga": 15000,
         "status": "ready"
       },
-      {
+    
+  "6": {    
         "nomor": "+6281110004",
         "id": "ID6",
         "password": "nokos004",
         "harga": 10000,
         "status": "ready"
       },
-      {
+    
+ "7": { 
         "nomor": "+6281110005",
         "id": "ID7",
         "password": "nokos005",
         "harga": 8000,
         "status": "ready"
       },
-      {
+    
+ "8": { 
         "nomor": "+6281110006",
         "id": "ID8usa",
         "password": "nokos006",
         "harga": 15000,
         "status": "ready"
       },
-      {
+      
+  "9": {
         "nomor": "+6281110007",
         "id": "ID6,9digit",
         "password": "nokos007",
         "harga": 35000,
         "status": "ready"
       }
-    ]
-  },
-
-  "4": {
+  
+  "10": {
     "nama": "SUNTIK MEMBER GC",
     "kategori": "per1k",
     "stok": 9999,
@@ -81,3 +83,4 @@
   }
 }
   
+
